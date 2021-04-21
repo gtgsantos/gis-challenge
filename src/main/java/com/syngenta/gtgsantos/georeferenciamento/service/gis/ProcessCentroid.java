@@ -1,5 +1,6 @@
 package com.syngenta.gtgsantos.georeferenciamento.service.gis;
 
+import com.syngenta.gtgsantos.georeferenciamento.service.exception.CentroidException;
 import org.geotools.coverage.grid.GridCoordinates2D;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.geometry.jts.JTS;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class ProcessCentroid {
 
 
-    public Map<String, Object> getCentroid(GridEnvelope dimensions, GridCoverage2D coverage)  {
+    public Map<String, Double> getCentroid(GridEnvelope dimensions, GridCoverage2D coverage)  {
 
         try {
             CoordinateReferenceSystem wgs84 = DefaultGeographicCRS.WGS84;
@@ -56,16 +57,15 @@ public class ProcessCentroid {
             latBig = latBig.divide(counter, RoundingMode.HALF_DOWN);
             lonBig = lonBig.divide(counter, RoundingMode.HALF_DOWN);
 
-            Map<String, Object> returnMap =  new HashMap<String, Object>();
+            Map<String, Double> returnMap =  new HashMap<String, Double>();
             returnMap.put("lat", latBig.doubleValue());
             returnMap.put("lon", lonBig.doubleValue());
 
             return returnMap;
 
         } catch (FactoryException | TransformException e) {
-            e.printStackTrace();
+            throw new CentroidException();
         }
-        return null;
     }
 
 }

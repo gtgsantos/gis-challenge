@@ -26,29 +26,7 @@ public class VegetationService {
 
         GisData gisData = new GisData(fileProcessing.getFile());
 
-        Map<String, Object> centroid = new ProcessCentroid().getCentroid(gisData.getDimensions(), gisData.getCoverage());
-
-        Map<String, Object> coordinates = new HashMap<String, Object>();
-        coordinates.put("type", "Point");
-
-        double lat = (Double) centroid.get(("lat"));
-        double lon = (Double) centroid.get(("lon"));
-//        String[] innerArray = {String.valueOf(lat), String.valueOf(lon)};
-//        String[][] array = {innerArray};
-
-
-
-        coordinates.put("coordinates", Arrays.asList(Arrays.asList(lat, lon)));
-
-        Map<String, Object> mapaRetorno = new HashMap<String, Object>();
-        mapaRetorno.put("area", new ProcessArea().getArea(gisData.getDimensions(), gisData.getCoverage()));
-        mapaRetorno.put("centroid", coordinates);
-        mapaRetorno.put("cover", 0.23123213d);
-        mapaRetorno.put("filename", filename);
-        mapaRetorno.put("local_time", "2020 10 10");
-
-//        return vegetationData;
-        return mapaRetorno;
+        return new ProcessorData().process(gisData, filename);
     }
 
 }
