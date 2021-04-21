@@ -41,11 +41,8 @@ public class ProcessLocalTime {
 
         LocalDateTime localDateTime = LocalDateTime.parse(localTimeSubstring, formatador);
         ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, shotZone);
-
         ZonedDateTime changedZonedTimeZone = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault());
-
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern(ISO_8601_OUTPUT);
-
 
         return changedZonedTimeZone.format(formatter2);
     }
