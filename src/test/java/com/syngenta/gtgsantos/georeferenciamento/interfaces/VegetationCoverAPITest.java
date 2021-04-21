@@ -1,6 +1,10 @@
 package com.syngenta.gtgsantos.georeferenciamento.interfaces;
 
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,13 +75,15 @@ public class VegetationCoverAPITest {
 
     @Test
     public void testGetEndpointCheckCentroidCoordinates() {
+        Response response =
+                given()
+                        .contentType(io.restassured.http.ContentType.JSON)
+                        .get(api);
 
-        given()
-                .contentType(io.restassured.http.ContentType.JSON)
-                .get(api)
-                .then()
-                .statusCode(200)
-                .body("centroid.coordinates", equalTo("[[-47.59722892155127, -15.858576386589295]]"));
+        JsonPath jp = new JsonPath(response.asString());
+        String output = jp.get("centroid.coordinates").toString();
+
+        Assertions.assertEquals("[[-47.597244, -15.858562]]", output);
     }
 
     @Test

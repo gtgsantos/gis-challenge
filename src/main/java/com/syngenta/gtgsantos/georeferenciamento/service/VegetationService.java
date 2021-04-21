@@ -2,10 +2,13 @@ package com.syngenta.gtgsantos.georeferenciamento.service;
 
 
 import com.syngenta.gtgsantos.georeferenciamento.service.file.FileProcessing;
+import com.syngenta.gtgsantos.georeferenciamento.service.gis.GisData;
+import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessCentroid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,21 +22,20 @@ public class VegetationService {
     private String filename;
 
     public Map<String, Object> getVegetationData() {
-        //        VegetationData vegetationData = new VegetationData();
-//        vegetationData.setCover(12312312d);
-//        vegetationData.setArea(3333333333d);
-//        vegetationData.setFilename("teste.teste");
-//        vegetationData.setLocalTime("ninino nononon");
+
+        GisData gisData = new GisData(fileProcessing.getFile());
+
+        Map<String, Object> centroid = new ProcessCentroid().getCentroid(gisData.getDimensions(), gisData.getCoverage());
 
         Map<String, Object> coordinates = new HashMap<String, Object>();
         coordinates.put("type", "Point");
 
+        double lat = (Double) centroid.get(("lat"));
+        double lon = (Double) centroid.get(("lon"));
+//        String[] innerArray = {String.valueOf(lat), String.valueOf(lon)};
+//        String[][] array = {innerArray};
 
-        double[] innerArray = {111d, 222d};
-        double[][] array = {innerArray};
-        coordinates.put("coordinates", array);
-
-//        coordinates.put("coordinates", 22);
+        coordinates.put("coordinates", Arrays.asList(Arrays.asList(lat, lon)));
 
         Map<String, Object> mapaRetorno = new HashMap<String, Object>();
         mapaRetorno.put("area", 2131123d);
