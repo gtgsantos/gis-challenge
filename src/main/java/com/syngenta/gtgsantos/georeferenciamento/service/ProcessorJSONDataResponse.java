@@ -4,13 +4,14 @@ package com.syngenta.gtgsantos.georeferenciamento.service;
 import com.syngenta.gtgsantos.georeferenciamento.service.gis.GisData;
 import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessArea;
 import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessCentroid;
+import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessLocalTime;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class ProcessorData {
+public class ProcessorJSONDataResponse {
 
 
     public Map<String, Object> process(GisData gisData, String filename) {
@@ -19,12 +20,17 @@ public class ProcessorData {
         prepareArea(gisData, map);
         prepareCentroid(gisData, map);
         prepareFilename(map, filename);
+        prepareLocalTime(gisData, filename, map);
 
         map.put("cover", 0.23123213d);
 
-        map.put("local_time", "2020 10 10");
+
 
         return map;
+    }
+
+    private void prepareLocalTime(GisData gisData, String filename, Map<String, Object> mapValues) {
+        mapValues.put("local_time", new ProcessLocalTime().getLocalTime(gisData, filename));
     }
 
     private void prepareArea(GisData gisData, Map<String, Object> mapValues) {

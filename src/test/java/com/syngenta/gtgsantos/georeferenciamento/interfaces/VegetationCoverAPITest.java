@@ -3,9 +3,6 @@ package com.syngenta.gtgsantos.georeferenciamento.interfaces;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import junit.framework.Assert;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +12,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.equalToCompressingWhiteSpace;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class VegetationCoverAPITest {
@@ -78,7 +74,7 @@ public class VegetationCoverAPITest {
                 .get(api)
                 .then()
                 .statusCode(200)
-                .body("local_time", equalTo("2021-04-14T22:53:20.523333"));
+                .body("local_time", equalTo("2016-12-07T13:19:53.00000"));
     }
 
     @Test

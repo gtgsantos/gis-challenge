@@ -6,13 +6,10 @@ import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.coverage.grid.io.AbstractGridFormat;
 import org.geotools.coverage.grid.io.GridCoverage2DReader;
 import org.geotools.coverage.grid.io.OverviewPolicy;
-import org.geotools.data.DataSourceException;
 import org.geotools.gce.geotiff.GeoTiffReader;
-import org.opengis.coverage.grid.GridCoordinates;
 import org.opengis.coverage.grid.GridEnvelope;
 import org.opengis.parameter.GeneralParameterValue;
 import org.opengis.parameter.ParameterValue;
-import org.opengis.referencing.operation.TransformException;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,12 +36,6 @@ public class GisData {
             coverage = reader.read(
                     new GeneralParameterValue[]{policy, gridSize, useJaiRead}
             );
-
-
-//            new Centroide(dimensions, coverage);
-//            new AreaCalculo(dimensions, coverage);
-//            new TZone(dimensions, coverage);
-
 
         } catch (IOException e) {
             throw new ProcessingException();
