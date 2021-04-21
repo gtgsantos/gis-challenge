@@ -4,6 +4,8 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import junit.framework.Assert;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.equalToCompressingWhiteSpace;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class VegetationCoverAPITest {
@@ -32,12 +35,17 @@ public class VegetationCoverAPITest {
     @Test
     public void testGetEndpointCheckArea() {
 
-        given()
+        Response response = given()
                 .contentType(io.restassured.http.ContentType.JSON)
-                .get(api)
-                .then()
-                .statusCode(200)
-                .body("area", equalTo(1267031.25d));
+                .get(api);
+
+        response.then()
+                .statusCode(200);
+
+        JsonPath jp = new JsonPath(response.asString());
+        String output = jp.get("area").toString();
+
+        Assertions.assertEquals("1258503.8", output);
     }
 
     @Test

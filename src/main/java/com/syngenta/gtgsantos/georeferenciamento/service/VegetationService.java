@@ -3,6 +3,7 @@ package com.syngenta.gtgsantos.georeferenciamento.service;
 
 import com.syngenta.gtgsantos.georeferenciamento.service.file.FileProcessing;
 import com.syngenta.gtgsantos.georeferenciamento.service.gis.GisData;
+import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessArea;
 import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessCentroid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,10 +36,12 @@ public class VegetationService {
 //        String[] innerArray = {String.valueOf(lat), String.valueOf(lon)};
 //        String[][] array = {innerArray};
 
+
+
         coordinates.put("coordinates", Arrays.asList(Arrays.asList(lat, lon)));
 
         Map<String, Object> mapaRetorno = new HashMap<String, Object>();
-        mapaRetorno.put("area", 2131123d);
+        mapaRetorno.put("area", new ProcessArea().getArea(gisData.getDimensions(), gisData.getCoverage()));
         mapaRetorno.put("centroid", coordinates);
         mapaRetorno.put("cover", 0.23123213d);
         mapaRetorno.put("filename", filename);
