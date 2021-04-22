@@ -32,7 +32,7 @@ public class ProcessorJSONDataResponse {
     }
 
     private void prepareCover(GisData gisData, Map<String, Object> mapValues) {
-        mapValues.put("cover", new ProcessCover().getCover(gisData.getDimensions(), gisData.getCoverage()));
+        mapValues.put("cover", new ProcessCover().getCover(gisData.getCoverage()));
     }
 
     private void prepareFilename(Map<String, Object> mapValues, String filename) {
