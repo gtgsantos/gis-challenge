@@ -133,21 +133,6 @@
 			<version>2020d.11</version>
 		</dependency>
 
-		<!-- gdal -->
-		<dependency>
-			<groupId>org.gdal</groupId>
-			<artifactId>gdal</artifactId>
-			<classifier>gisinternals</classifier>
-			<version>3.2.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.egc</groupId>
-			<artifactId>gis-commons</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-
-
 	</dependencies>
 
 	<repositories>
