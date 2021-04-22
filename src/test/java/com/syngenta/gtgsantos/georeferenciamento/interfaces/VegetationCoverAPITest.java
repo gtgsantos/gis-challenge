@@ -57,13 +57,17 @@ public class VegetationCoverAPITest {
 
     @Test
     public void testGetEndpointCheckCover() {
-
-        given()
+        Response response = given()
                 .contentType(io.restassured.http.ContentType.JSON)
-                .get(api)
-                .then()
-                .statusCode(200)
-                .body("cover", equalTo(00.000d));
+                .get(api);
+
+        response.then()
+                .statusCode(200);
+
+        JsonPath jp = new JsonPath(response.asString());
+        String output = jp.get("cover").toString();
+
+        Assertions.assertEquals("0.6625432", output);
     }
 
     @Test

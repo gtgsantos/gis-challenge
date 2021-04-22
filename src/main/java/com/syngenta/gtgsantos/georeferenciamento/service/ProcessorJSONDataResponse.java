@@ -1,10 +1,7 @@
 package com.syngenta.gtgsantos.georeferenciamento.service;
 
 
-import com.syngenta.gtgsantos.georeferenciamento.service.gis.GisData;
-import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessArea;
-import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessCentroid;
-import com.syngenta.gtgsantos.georeferenciamento.service.gis.ProcessLocalTime;
+import com.syngenta.gtgsantos.georeferenciamento.service.gis.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,10 +18,7 @@ public class ProcessorJSONDataResponse {
         prepareCentroid(gisData, map);
         prepareFilename(map, filename);
         prepareLocalTime(gisData, filename, map);
-
-        map.put("cover", 0.23123213d);
-
-
+        prepareCover(gisData, map);
 
         return map;
     }
@@ -35,6 +29,10 @@ public class ProcessorJSONDataResponse {
 
     private void prepareArea(GisData gisData, Map<String, Object> mapValues) {
         mapValues.put("area", new ProcessArea().getArea(gisData.getDimensions(), gisData.getCoverage()));
+    }
+
+    private void prepareCover(GisData gisData, Map<String, Object> mapValues) {
+        mapValues.put("cover", new ProcessCover().getCover(gisData.getDimensions(), gisData.getCoverage()));
     }
 
     private void prepareFilename(Map<String, Object> mapValues, String filename) {
