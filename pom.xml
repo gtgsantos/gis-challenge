@@ -169,7 +169,7 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
+			<!--<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<encoding>${project.build.sourceEncoding}</encoding>
@@ -177,7 +177,23 @@
 					<source>${maven.compiler.source}</source>
 				</configuration>
 			</plugin>
+-->
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.syngenta.gtgsantos.georeferenciamento.util.FileResourcesUtils</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>-->
 		</plugins>
+
+
 	</build>
 
 </project>

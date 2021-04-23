@@ -12,6 +12,7 @@ import org.opengis.coverage.grid.GridEnvelope;
 import org.opengis.parameter.GeneralParameterValue;
 import org.opengis.parameter.ParameterValue;
 
+import javax.imageio.stream.ImageInputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -21,11 +22,10 @@ public class GisData {
     private GridCoverage2D coverage;
     private GridEnvelope dimensions;
 
-    public GisData(File file) {
+    public GisData(ImageInputStream imageInputStream) {
 
         try {
-            GridCoverage2DReader reader = new GeoTiffReader(file);
-
+            GridCoverage2DReader reader = new GeoTiffReader(imageInputStream);
             dimensions = reader.getOriginalGridRange();
 
             ParameterValue<OverviewPolicy> policy = AbstractGridFormat.OVERVIEW_POLICY.createValue();
@@ -39,6 +39,7 @@ public class GisData {
             );
 
         } catch (IOException e) {
+            e.printStackTrace();
             throw new ProcessingException();
         }
     }

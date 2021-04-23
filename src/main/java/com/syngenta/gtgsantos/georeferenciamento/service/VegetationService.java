@@ -20,7 +20,7 @@ public class VegetationService {
 
     public Map<String, Object> getVegetationData() {
 
-        GisData gisData = new GisData(fileProcessing.getFile());
+        GisData gisData = new GisData(fileProcessing.getImageInputStream());
 
         return new ProcessorJSONDataResponse().process(gisData, filename);
     }
